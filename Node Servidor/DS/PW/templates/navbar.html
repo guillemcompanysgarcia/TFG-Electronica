@@ -1,0 +1,18 @@
+<nav>
+  <label for="menu-toggle" class="menu-toggle"><span>Menu</span></label>
+  <input id="menu-toggle" type="checkbox">
+  <ul class="menu">
+      <div class="navbar-greeting">Hola  {{current_user.username}}! </div>
+   <a href="{{ url_for('user') }}">
+      <div class="menu-item">
+        <img class="fp" src="/static/img/general/user.png" alt="logo">
+        <h2> El meu perfil</h2>
+      </div>
+    </a>  
+    <li><a href="/">Inici</a></li>
+    <li><a href="{{ url_for('client_select') }}">Clients</a></li>
+    <li><a href="{{ url_for('logout') }}">Tancar Sessió</a></li>
+  </ul>
+  <img id = "logo" src="{{ url_for('static', filename='img/general/logo_blanc.png') }}" alt="logo_blanc">
+</nav>
+

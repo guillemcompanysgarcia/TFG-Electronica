@@ -1,0 +1,38 @@
+<head>
+  <meta charset="utf-8">
+  <title>Sistema Industrial de Monitoratge de Processos Químics</title>
+  <link rel="stylesheet" type="text/css" href="static/styles/login.css">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+  <div class="parent clearfix">
+    <div class="bg-illustration">
+      <img src="static\img\general\logo.png" alt="logo">
+    </div>
+    
+    <div class="login">
+      <div class="container">
+        <h1>Sistema Industrial de Monitoratge de Processos Químics</h1>
+        <h2>Inici de Sessió</h2>        
+        <div class="login-form">
+          <form action="{{ url_for('login') }}" method="post">
+            <input type="email" name="email" placeholder="Adreça Correu" maxlength="50">
+            <input type="password"  name="password" placeholder="Contrasenya" maxlength="30">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <p class ="error">{{ message }}</p>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <button type="submit" value="Submit">Accedir</button>
+          </form>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</body>
+  
+</html>

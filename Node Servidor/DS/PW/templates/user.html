@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <title>Sistema Industrial de Monitoratge de Processos Químics</title>
+       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/user.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/navbar.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<header>
+    <!-- Import the navigation bar from navbar.html -->
+    <div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
+</header>
+
+<body>
+    <div class="container">
+      <h1>El meu perfil</h1>
+      <img class="fp" src="/static/img/general/user.png" alt="logo">
+      <table>
+        <tr>
+          <td>Rol:</td>
+          <td id="role">{{ user.role }}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Nom d'Usuari:</td>
+          <td id="username">{{ user.username }}</td>
+          <td><button class="edit-btn" onclick="toggleForm('username');">Editar</button></td>
+        </tr>
+        <tr>
+          <td>Correu Electrònic:</td>
+          <td id="email">{{ user.email }}</td>
+          <td><button class="edit-btn" onclick="toggleForm('email');">Editar</button></td>
+        </tr>
+        <tr>
+          <td>Contrasenya:</td>
+          <td id="password">********</td>
+          <td><button class="edit-btn" onclick="toggleForm('password');">Editar</button></td>
+        </tr>
+
+      </table>
+      <form id="edit-form" style="display:none" method="POST" action="{{ url_for('user') }}">
+        <input type="hidden" name="field" id="field">
+        <input type="text" name="value" id="value">
+        <button type="submit">Save</button>
+        <button type="button" onclick="hideForm()">Cancel·lar</button>
+      </form>
+      <a href="{{return_to_start}}" class="button1">Tornar a l'inici</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/user.js') }}"></script>
+  </body>
+</html>
+

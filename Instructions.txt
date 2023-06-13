@@ -1,0 +1,50 @@
+To create a Linux service to run the provided script script.sh, you can follow these steps:
+
+Create the script file:
+
+Open a text editor and copy the contents of the script into a new file.
+Save the file as script.sh in a suitable location, such as /home/proves/Desktop/NodeXXXX/CP.
+Make the script executable:
+
+Open a terminal.
+Run the following command to make the script executable:
+bash
+ 
+chmod +x /home/proves/Desktop/NodeXXXX/CP/script.sh
+Create a systemd service file:
+
+Open a terminal.
+Run the following command to create a new service file:
+ 
+sudo nano /etc/systemd/system/script.service
+In the editor, paste the following content into the file:
+makefile
+ 
+[Unit]
+Description=Script Service
+After=network.target
+
+[Service]
+ExecStart=/home/proves/Desktop/NodeXXXX/CP/script.sh
+
+[Install]
+WantedBy=multi-user.target
+Save the file and exit the editor (Ctrl+O, Ctrl+X in nano).
+Enable and start the service:
+
+Run the following commands to enable and start the service:
+ 
+sudo systemctl enable script.service
+sudo systemctl start script.service
+Now, the script will run as a service on your Linux system. It will start automatically on boot and restart if it fails. You can also manage the service using the following commands:
+
+To stop the service:
+
+sudo systemctl stop script.service
+To restart the service:
+
+sudo systemctl restart script.service
+To check the status of the service:
+
+sudo systemctl status script.service
+Note: Replace NodeXXXX with the actual name of the directory where your Python script is located. Additionally, the script assumes you have Python 3 installed and the main.py file is present in the specified directory.

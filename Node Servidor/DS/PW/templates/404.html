@@ -1,0 +1,17 @@
+<!-- templates/404.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/404.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>La pàgina on estàs intentant accedir no existeix.</p>
+        <a href="{{ url_for('index') }}">Tornar a l'inici</a>
+    </div>
+</body>
+</html>

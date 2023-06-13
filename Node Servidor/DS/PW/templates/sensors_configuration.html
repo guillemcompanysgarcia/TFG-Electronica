@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPQ</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/config.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/navbar.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="{{url_for('static', filename='js/modules/base.js')}}"></script>
+    <script src="{{url_for('static', filename='js/configurations/sensors.js')}}"></script>
+
+
+</head>
+
+<header>
+        <!-- Import the navigation bar from navbar.html -->
+        <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+</header>
+<body data-json="{{ data|safe }}">
+    <h1> Configuració dels sensors</h1>
+    <div class="container" id="main">
+    
+        <h2>Afegir Sensor</h2>
+        <div id="data">
+            <form onsubmit="addRowFromFormAndUpdate(event, this); reset(); return false"> 
+                <input type="text" name = "Nom del Sensor" id="name" placeholder="Nom del Sensor" maxlength="30" required>
+                <select name="Identificador" id="Identificador" required>
+                    <option value="" disabled selected hidden>Identificador</option>
+                </select>
+                <select name="Tipus de Sensor" id="type" required onchange="load_units(this)">
+                    <option value="" disabled selected hidden>Tipus de Sensor</option>
+                </select>
+                <select name="Unitat" id="unit" required>
+                    <option value="" disabled selected hidden>Unitat</option>
+                </select>
+                <select name="Interval de Temps" id="interval" required>
+                    <option value="" disabled selected hidden>Interval de Temps</option>
+                </select>
+                <select name="Funció Modbus Lectura" id="modbusfunc" required onchange="load_addresses(this)">
+                    <option value="" disabled selected hidden>Funció Modbus Lectura</option>
+                </select>
+
+                <select name="Adreça" id="address" required>
+                    <option value="" disabled selected hidden>Adreça</option>
+                </select>
+
+                <input disabled type="number" name= "Nº Registres" min="1" max="10" id="number" placeholder="Nº Registres" required>
+
+                <input type="text" name="Comentaris Addicionals" id="comments" placeholder="Comentaris Addicionals" maxlength="150">
+                <button id="addbutton">Afegir</button>
+            </form>
+        </div>
+        <p> ADVERTIMENT: Cada sensor ha de tenir un nom i un identificador únic.  Després d'afegir o eliminar un sensor és necessari guardar els canvis realitzats. En cas negatiu, els canvis no tindran efecte. </p>
+    </div>
+    <div class="containerbuttons">
+        <a href="{{actuators_link}}" class="button1">Configuració dels Actuadors</a>
+        <a href="{{return_to_control_panel}}" class="button1">Tornar al panell de control</a>
+        <a href="{{alarms_link}}" class="button1">Configuració de les Alarmes</a>
+    </div>       
+</body>
+
+<script>
+    const jsonData = `{{ data|safe }}`;
+    window.onload = initializePage(jsonData);
+</script>
+
+</html>
+
+<!doctype html>

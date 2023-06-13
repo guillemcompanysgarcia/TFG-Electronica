@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <title>Sistema Industrial de Monitoratge de Processos Químics</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/control_panel.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/navbar.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+    <header>
+        <!-- Import the navigation bar from navbar.html -->
+        <div id="navbar-container">
+        {% include 'navbar.html' %}
+    </div>
+    </header>
+
+    <body>
+      <div class="bg-illustration"></div> 
+      <div class="includedContent">
+          <h1 class="title">{{ client }}</h1>
+          <div class="container" id="main">
+            <div class="containerlogo" onclick="window.open('{{sensors_panel}}', '_blank');">
+              <a href="{{sensors_panel}}" target="_blank">
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/A.png')}}" />
+              </a>
+              <a href="{{sensors_panel}}" class="button1" target="_blank">Lectura dels sensors</a>
+            </div>
+            <div class="containerlogo" onclick="window.open('{{data_base}}', '_blank');">
+              <a href="{{data_base}}" target="_blank">
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/B.png')}}" />
+              </a>
+              <a href="{{data_base}}" class="button1" target="_blank">Base de dades</a>
+            </div>
+            <div class="containerlogo" onclick="window.open('{{system_monitoring}}', '_blank');">
+              <a href="{{system_monitoring}}" target="_blank">
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/C.png')}}" />
+              </a>
+              <a href="{{system_monitoring}}" class="button1" target="_blank">Estat del Sistema</a>
+            </div> 
+          </div>
+      </div>
+  </body>
+  
+</html>
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Sistema Industrial de Monitoratge de Processos Químics</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/client_select.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/navbar.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+ 
+
+  <header>
+    <!-- Import the navigation bar from navbar.html -->
+    <div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
+</header>
+
+<body>
+  <div class="parent clearfix">
+    <div class="bg-illustration">
+    </div>
+    
+    <div class="login">
+      <div class="container">
+        <h1>Sistema Industrial de Monitoratge de Processos Químics</h1>
+        <h2>Selecció de Client</h2>
+        <div class="login-form">
+          <form action="{{ url_for('client_select', client=client) }}" method="post">
+            <select name="client">
+              {% for client in clients %}
+              <option value="{{ client }}">{{ client }}</option>
+              {% endfor %}
+            </select>
+            <button type="submit" value="Submit">OK</button>
+
+          </form>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</body>
+  
+</html>

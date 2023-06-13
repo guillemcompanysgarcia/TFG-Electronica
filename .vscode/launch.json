@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+                {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome to Debug JS in Flask App",
+            "url": "http://localhost:80",
+            "webRoot": "C:\\Users\\ggarc\\Dropbox\\Treball_TFG\\Codi Raspberries\\Node Servidor\\DS\\PW"
+        }
+    ]
+}

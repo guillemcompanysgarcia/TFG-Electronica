@@ -1,0 +1,26 @@
+{
+    "Kamoer": {
+        "KCM mini peristaltic pump 38~420ml/min": {
+		        "Default_Address": "0xC0",
+		        "Device_ID": "0xC0",
+            "Start_Connection_Call":[
+                {"Function": "5", "Address": "0x1004", "Value": "0xFF00"}
+            ],
+            "Start_Pump":[
+                {"Function": "5", "Address": "0x1001", "Value": "0xFF00"}
+            ],
+            "Stop_Pump":[
+                {"Function": "5", "Address": "0x1001", "Value": "0x0000"}
+            ],
+            "Read_Pump_State":[
+                {"Function": "5", "Address": "0x1001"}
+            ],
+            "Set_Pump_Direction": [
+                {"Function": "16", "Address": "0x3001", "Values": {"Right": "0x0000", "Left": "0xFF00"}} 
+            ],
+            "Read_Pump_Direction":[
+                {"Function": "1", "Address": "0x1003"}
+            ]
+        }
+    }
+}

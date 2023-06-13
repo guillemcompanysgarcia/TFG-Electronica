@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPQ</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/config.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/navbar.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="{{url_for('static', filename='js/modules/base.js')}}"></script>
+    <script src="{{url_for('static', filename='js/configurations/actuadors.js')}}"></script>
+
+
+</head>
+
+<header>
+    <!-- Import the navigation bar from navbar.html -->
+    <div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
+</header>
+<body>
+    <h1> Configuració dels actuadors</h1>
+    <div class="container" id="main">
+        <h2>Afegir Actuador</h2>
+        <div id="data">
+            <form onsubmit="addRowFromFormAndUpdate(event, this); reset();return false"> 
+                <input type="text" name = "Nom de l'Actuador" id="name" placeholder="Nom de l'Actuador" maxlength="30" required>
+                <select name="Identificador" id="Identificador" required>
+                    <option value="" disabled selected hidden>Identificador</option>
+                </select>
+                <select name="Tipus d'Actuador" id="type" required>
+                    <option value="" disabled selected hidden>Tipus d'Actuador</option>
+                </select>
+
+                <select name="Marca comercial" id="marca" required onchange="load_models(this)">
+                    <option value="" disabled selected hidden>Marca comercial</option>
+                </select>
+
+                <select name="Model" id="model" required>
+                    <option value="" disabled selected hidden>Model</option>
+                </select>
+
+                <input type="text" name="Comentaris Addicionals" id="comments" placeholder="Comentaris Addicionals" maxlength="150">
+                <button id="addbutton">Afegir</button>
+            </form>
+        </div>
+        <p> ADVERTIMENT: Cada actuador ha de tenir un nom i un identificador únic. Després d'afegir o eliminar un actuador és necessari guardar els canvis realitzats. En cas negatiu, els canvis no tindran efecte. </p>
+    </div> 
+    <div class="containerbuttons">
+        <a href="{{sensors_link}}" class="button1">Configuració dels Sensors</a>
+        <a href="{{return_to_control_panel}}" class="button1">Tornar al panell de control</a>
+        <a href="{{alarms_link}}" class="button1">Configuració de les Alarmes</a>
+    </div>   
+</body>
+<script>    
+    const jsonData = `{{ data|safe }}`;
+    window.onload = initializePage(jsonData);
+</script>
+</html>
+
+<!doctype html>

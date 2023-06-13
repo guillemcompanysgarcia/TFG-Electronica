@@ -1,0 +1,88 @@
+.parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-illustration {
+  height: 100vh;
+  width: 25%;
+  background: url("../img/general/bg.png") no-repeat center top scroll;
+  background-size: cover;
+  float: left;
+}
+
+.includedContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25%; /* set margin to the same width as bg-illustration */
+  max-width: 75%; /* set max width to fill remaining space */
+  height: 100vh; /* set height to 100% of viewport height */
+}
+
+.bg-illustration img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  transform: translateX(-50%);
+  height: 70px;
+  margin-bottom: 40px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 20px;
+  height: 70%;
+}
+
+.containerlogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-height: 400px;
+}
+
+.containerlogo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.buttonlogo {
+  width: 30%;
+}
+
+.button1 {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #504ecc;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button1:hover {
+  background-color: #163f6e;
+}
+
+.title{
+padding:50px;
+}

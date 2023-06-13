@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPQ</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/config.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/navbar.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="{{url_for('static', filename='js/modules/base.js')}}"></script>
+    <script src="{{url_for('static', filename='js/configurations/alarmes.js')}}"></script>
+    <script src="{{url_for('static', filename='js/modules/cards.js')}}"></script>
+
+
+</head>
+<header>
+    <!-- Import the navigation bar from navbar.html -->
+    <div id="navbar-container">
+    {% include 'navbar.html' %}
+</div>
+</header>
+<body>
+    <h1> Configuració de les alarmes</h1>
+    <div class="container" id="main">
+        <div class="alarms-container" id = "alarms-container">
+        
+        </div>
+        
+        <div id="saveChangesContainer"></div>
+        <div id="loading-icon" style="display: block;">
+            <img src="/static/img/loading.gif" alt="Loading...">
+        </div>
+        <h2>Afegir Alarma</h2>
+        <div id="data">
+            <div>
+                <form onsubmit="addCard_Update(event, this);reset(); return false">
+                    
+                    <input type="text" id="name" name="Nom de l'Alarma" placeholder="Nom de l'Alarma"  maxlength="30" required>
+                    <select name="Identificador" id="Identificador" required>
+                        <option value="" disabled selected hidden>Identificador</option>
+                    </select>
+                    <select id="action" name="Acció" onchange="showActuatorOptions()" required>
+                        <option value="" disabled selected hidden>Acció</option>
+                    </select>
+
+                    <div id="actuatorContainer" style="display:none;">
+                        <div id="actuatorOptions" class="actuatorWrapper">
+                            <select id="actuators" name="Actuador Associat" class="actuatorSelect" onchange = "updateActuatorOptions();">
+                                <option value="" disabled selected hidden>Actuador Associat</option>
+                            </select>
+                            <button type="button" id="addActuatorButton" onclick="addActuator()">&#10133;</button>
+                        </div>
+                    </div>
+
+                    <div id="modeOptions" style="display:none;">
+                        <select id="mode" name="Mode Funcionament">
+                            <option value="" disabled selected hidden>Mode Funcionament</option>
+                            <option value="Mode Predeterminat">Mode Predeterminat</option>
+                            <option value="Mode Precisió" disabled>Mode Precisió</option>
+                            <option value="Mode Mescla" disabled>Mode Mescla</option>
+                        </select>
+                    </div>
+                    
+                    <div id="photoOptions" class="valuesWrapper" style="display:none;">
+                        <div class="photoOptionsInnerWrapper">
+                            <select id="photoAction" name="Acció Posterior" onchange="handlePhotoChange()">
+                                <option value="" disabled selected hidden>Acció Posterior</option>
+                                <option value="Guardar imatge localment">Guardar imatge localment</option>
+                                <option value="Enviar per correu electrònic">Enviar per correu electrònic</option>
+                                <option value="Fer correlació de la mescla">Fer correlació de la mescla</option>
+                            </select>
+                        
+                            <div id="correlationOptions" style="display:none;">
+                                <select id="correlationAction" name="Acció Consecutiva">
+                                    <option value="" disabled selected hidden>Acció Consecutiva</option>
+                                    <option value="Guardar informe correlació localment">Guardar informe correlació localment</option>
+                                    <option value="Enviar informe per correu electrònic">Enviar informe per correu electrònic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="emailOptions" class="valuesWrapper" style="display:none;">
+                        <div class="emailOptionsInnerWrapper">
+                            <select id="sensorEmail" name="Sensor a llegir">
+                                <option value="" disabled selected hidden>Sensor a llegir</option>
+                              </select>
+                            <div id="lastNSamplesContainer">
+                            <input type="number" id="lastNSamples" name="Nº mostres" min="1" max="10" placeholder=" Nº mostres">
+                        </div>
+                        </div>
+                      </div>
+
+                    <select id="triggerType" name="Desencadenant" onchange="showTriggerOptions()"required>
+                        <option value="" disabled selected hidden>Desencadenant</option>
+                        <option value="Alarma recurrent">Alarma recurrent</option>
+                        <option value="Quan es compleixi la condició">Quan es compleixi la condició</option>
+                    </select>
+                    <div id="periodContainer" style="display:none;">
+                        <input type="number" id="period" name ="Interval comprovació (seg)" min = 5 max = 600 name="period" placeholder = "Interval comprovació (seg)">
+                    </div>
+
+                    <div id="conditionContainer">
+                        <div id="condition" style="display:none"; class= "conditionDiv">
+                                <select id="sensor" name="Sensor Associat" onchange="updateThresholdPlaceholder(this.parentElement);">
+                                <option value="" disabled selected hidden>Sensor Associat</option>
+                            </select>
+                            <select id="operation" name="Operació">
+                                <option value="" disabled selected hidden>Comparador</option>
+                                <option value="Superior">Major que</option>
+                                <option value="Inferior">Menor que</option>
+                                <option value="Igual">Igual a</option>
+                            </select>
+                    
+                            <input type="text" id="threshold" name="Valor Llindar" pattern="[0-9]+(\.[0-9]+)?" placeholder="Llindar"  maxlength="10">
+                    
+                            <input type="number" id="numCycles" min = 1 max = 50 name="Nº cicles" placeholder = "Nº cicles">
+                            <button type="button" id="addConditionButton" onclick="addCondition()" style="display:none;">&#10133;</button>
+                        </div>
+                    
+                    </div>           
+                        
+                    <input type="text" name="Comentaris Addicionals" id="comments" placeholder="Comentaris Addicionals"  maxlength="150">
+                    <button type="submit" id="submit-button">Afegir</button>
+                    </form>
+                    
+            </div>
+        
+        </div>
+        <p> ADVERTIMENT: Cada alarma ha de tenir un nom i un identificador únic. Després d'afegir o eliminar una alarma és necessari guardar els canvis realitzats. En cas negatiu, els canvis no tindran efecte. </p> 
+    </div>
+    <div class="containerbuttons">
+        <a href="{{sensors_link}}" class="button1">Configuració dels Sensors</a>
+        <a href="{{return_to_control_panel}}" class="button1">Tornar al panell de control</a>
+        <a href="{{actuators_link}}" class="button1">Configuració dels Actuadors</a>
+    </div>    
+</body>
+<script>
+    const jsonData = `{{ data|safe }}`;
+    
+    window.onload = () => {
+      getSensorAndActuatorNames(() => {
+        load_form_options();
+        displayTablesFromJson(jsonData);
+        updateIdentifierOptions();
+        updateForm();
+        
+      });
+    };
+  </script>
+</html>
+<!doctype html>

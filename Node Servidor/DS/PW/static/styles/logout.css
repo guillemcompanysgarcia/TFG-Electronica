@@ -1,0 +1,28 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+  }
+
+.logout-container {
+    margin: 20% auto;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 3em;
+  }
+  
+  button {
+    background-color: #504ecc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+
+  button:hover {
+    background-color: #163f6e;
+}
+  
