@@ -22,30 +22,30 @@
           <h1 class="title">{{ client }}</h1>
           <div class="container" id="main">
             <div class="containerlogo" onclick="window.open('{{sensors_panel}}', '_blank');">
-              <img class="buttonlogo" src="{{url_for('static', filename='img/icones/A.png')}}" />
-              <a href="{{sensors_panel}}" class="button1" target="_blank">Lectura dels sensors</a>
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/A.png')}}" />
+                <a href="{{sensors_panel}}" class="button1" target="_blank" onclick="event.stopPropagation();">Lectura dels sensors</a>
             </div>
             <div class="containerlogo" onclick="window.open('{{data_base}}', '_blank');">
-              <img class="buttonlogo" src="{{url_for('static', filename='img/icones/B.png')}}" />
-              <a href="{{data_base}}" class="button1" target="_blank">Base de dades</a>
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/B.png')}}" />
+                <a href="{{data_base}}" class="button1" target="_blank" onclick="event.stopPropagation();">Base de dades</a>
             </div>
             <div class="containerlogo" onclick="window.open('{{system_monitoring}}', '_blank');">
-              <img class="buttonlogo" src="{{url_for('static', filename='img/icones/C.png')}}" />
-              <a href="{{system_monitoring}}" class="button1" target="_blank">Estat del Sistema</a>
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/C.png')}}" />
+                <a href="{{system_monitoring}}" class="button1" target="_blank" onclick="event.stopPropagation();">Estat del Sistema</a>
             </div> 
             <div class="containerlogo" onclick="window.location.href = '{{sensors_configuration}}';">
-              <img class="buttonlogo" src="{{url_for('static', filename='img/icones/D.png')}}" />
-              <a href="{{sensors_configuration}}" class="button1">Configuració dels sensors</a>
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/D.png')}}" />
+                <a href="{{sensors_configuration}}" class="button1" onclick="event.stopPropagation();">Configuració dels sensors</a>
             </div>
             <div class="containerlogo" onclick="window.location.href = '{{actuators_configuration}}';">
-              <img class="buttonlogo" src="{{url_for('static', filename='img/icones/E.png')}}" />
-              <a href="{{actuators_configuration}}" class="button1">Configuració dels actuadors</a>
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/E.png')}}" />
+                <a href="{{actuators_configuration}}" class="button1" onclick="event.stopPropagation();">Configuració dels actuadors</a>
             </div> 
             <div class="containerlogo" onclick="window.location.href = '{{alarms_configuration}}';">
-              <img class="buttonlogo" src="{{url_for('static', filename='img/icones/F.png')}}" />
-              <a href="{{alarms_configuration}}" class="button1">Configuració de les alarmes</a>
+                <img class="buttonlogo" src="{{url_for('static', filename='img/icones/F.png')}}" />
+                <a href="{{alarms_configuration}}" class="button1" onclick="event.stopPropagation();">Configuració de les alarmes</a>
             </div> 
-          </div>
+        </div>        
       </div>
   </body>
   
