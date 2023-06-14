@@ -57,9 +57,9 @@ def publish(client, topic, message):
         complete_publish_topic = publish_topic + topic
         status = client.publish(complete_publish_topic, message, qos=2, retain=True)
         if status[0] == 0:
-            logging.info(f"Sending reading to `{publish_topic}`")
+            logging.info(f"Sending reading to `{complete_publish_topic}`")
         else:
-            logging.error(f"Failed to send a reading to {publish_topic}, status: {status[0]}")
+            logging.error(f"Failed to send a reading to {complete_publish_topic}, status: {status[0]}")
     except Exception as e:
         logging.error(f"Error while trying to publish: {e}")
 

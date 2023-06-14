@@ -1,4 +1,4 @@
-#import picamera
+import picamera
 import time
 import datetime
 import os

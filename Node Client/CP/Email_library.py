@@ -76,9 +76,9 @@ def send_email(message):
     except Exception as e:
         logging.warning("Error sending the email" + e)
 
-def send_email_with_reading(sensor_name, sensor_type, unit, value, alarm_name):
+def send_email_with_reading(sensor_name, sensor_type, unit, value, alarm_name, subject):
     template_file_path = os.path.join(script_dir, "templates", "template_U_M.html")
-    message, body = load_template(template_file_path)  
+    message, body = load_template(template_file_path, subject)  
     # Format the body string with the actual values
     formatted_body = body.format(sensor_name = sensor_name, sensor_type = sensor_type, unit = unit, value = value, alarm_name = alarm_name, client_name = client_name, image_base64 = image_base64)
     
@@ -88,14 +88,14 @@ def send_email_with_reading(sensor_name, sensor_type, unit, value, alarm_name):
     send_email(message)
 
 
-def send_email_with_N_readings(sensor_name, sensor_type, unit, values, alarm_name):
+def send_email_with_N_readings(sensor_name, sensor_type, unit, values, alarm_name, subject):
     template_file_path = os.path.join(script_dir, "templates", "template_N_M.html")
-    message, body = load_template(template_file_path)  
+    message, body = load_template(template_file_path, subject)  
     
     # Prepare the rows for the table
     table_rows = ""
     for reading in values:
-        table_rows += f"<tr><td>{reading.result}</td><td>{reading.unit}</td></tr>\n"
+        table_rows += f"<tr><td>{reading}</td><td>{unit}</td></tr>\n"
     
     # Format the body string with the actual values
     formatted_body = body.format(sensor_name = sensor_name, sensor_type = sensor_type, unit = unit, 

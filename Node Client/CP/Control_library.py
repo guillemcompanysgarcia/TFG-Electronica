@@ -247,15 +247,17 @@ def handle_email_action(alarm):
                                                       sensor_type=alarm.samples_sensor["type"],
                                                       unit = sensor.unit,
                                                       value = value,
-                                                      alarm_name=alarm.name)
+                                                      alarm_name=alarm.name,
+                                                      subject = "subject_U_M")
                         logging.info("Sending email with a reading")
                     else:
-                        values = readings_dict[sensor.name][-alarm.samples:] 
+                        values = list(readings_dict[sensor.name])[-alarm.samples:]
                         EMAIL.send_email_with_N_readings(sensor_name=alarm.samples_sensor["name"],
                                                         sensor_type=alarm.samples_sensor["type"],
                                                         unit = sensor.unit,
                                                         values = values,
-                                                        alarm_name=alarm.name)
+                                                        alarm_name=alarm.name,
+                                                        subject = "subject_N_M")
                         logging.info("Sending email with N readings")
                 else:
                     logging.warning(f"Not enough samples ({len(readings_dict[sensor.name])}) to send email for sensor {sensor.name}")
@@ -304,6 +306,11 @@ def modbus_function(Modbus_Client, func, device_id, address, registers = 1, valu
 
 def sensor_driven_alarm_block(sensor, s, alarms):
     result = read_sensor(sensor)
+    '''if sensor.name == "A":
+        result = 7
+    if sensor.name == "B":
+        result = 2'''
+    #result = round(random.uniform(0, 10), 2)
     global readings_dict
     if readings_dict and sensor.name in readings_dict:
         readings_dict[sensor.name].append(result)

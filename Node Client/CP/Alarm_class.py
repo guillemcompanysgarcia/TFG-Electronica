@@ -31,9 +31,12 @@ class Alarm:
             if alarm_info.get("Nº mostres"):
                 self.samples = int(alarm_info.get("Nº mostres"))
             if alarm_info.get("Sensor a llegir"):
-                name, sensor_type = alarm_info.get("Sensor a llegir").split(' ')[0], alarm_info.get("Sensor a llegir").split(' ')[1].replace('(', '').replace(')', '')
+                parts = alarm_info.get("Sensor a llegir").split(' (')
+                
+                name = parts[0]
+                sensor_type = parts[1].rstrip(')')
                 self.samples_sensor = {'name': name, 'type': sensor_type}
-  
+
         if self.trigger == "Condició" and associated_sensors is not None:
             self.associated_sensors = associated_sensors
             parsed_conditions = []

@@ -47,25 +47,25 @@ def main():
                 
                 if configuration_updated["sensors"]:
                     logging.info(f"New Sensors of the System: {received_configurations['sensors']}")
-                    configuration_updated["sensors"] = False
                     sensors_list = []
                     if received_configurations["sensors"] != "None":
                         sensors_list = Control.load_sensors(received_configurations["sensors"])
                     
                 if configuration_updated["actuators"]:
-                    logging.info(f"New Actuators of the System: {received_configurations['actuators']}")
-                    configuration_updated["actuators"] = False
+                    logging.info(f"New Actuators of the System: {received_configurations['actuators']}")  
                     actuators_list = []
                     if received_configurations["actuators"] != "None":
                         actuators_list = Control.load_actuators(received_configurations["actuators"])
                     
         
-                if configuration_updated["alarms"]:
-                    logging.info(f"New Alarms of the System: {received_configurations['alarms']}")
-                    configuration_updated["alarms"] = False 
+                if configuration_updated["alarms"] or configuration_updated["sensors"] or configuration_updated["actuators"]:
                     alarms_list = []
                     timer_driven_feasible_alarms = []
                     sensor_driven_feasible_alarms = []
+                    
+                    if configuration_updated["alarms"]:
+                        logging.info(f"New Alarms of the System: {received_configurations['alarms']}")
+                        
                     if received_configurations["alarms"] != "None":
                         alarms_list = Control.load_alarms(received_configurations["alarms"])
                         feasible_alarms, not_feasible_alarms = Control.review_alarms(alarms_list,sensors_list,actuators_list)
@@ -86,32 +86,34 @@ def main():
                                 sensor_driven_feasible_alarms.append(alarm)
                         del feasible_alarms, not_feasible_alarms
 
-                        for alarm in timer_driven_feasible_alarms:
-                                s.enter(
-                                    alarm.check_Timer(),
-                                    1,
-                                    Control.timer_driven_alarm_block,
-                                    argument=(
-                                        alarm,
-                                        s,
-                                    ),
-                                )
+                for alarm in timer_driven_feasible_alarms:
+                        s.enter(
+                            alarm.check_Timer(),
+                            1,
+                            Control.timer_driven_alarm_block,
+                            argument=(
+                                alarm,
+                                s,
+                            ),
+                        )
 
 
-                    if set(received_configurations.keys()) == {"sensors", "actuators", "alarms"}:
-                        for sensor in sensors_list:
-                            s.enter(
-                                sensor.check_Timer(),
-                                1,
-                                Control.sensor_driven_alarm_block,
-                                argument=(
-                                    sensor,
-                                    s,
-                                sensor_driven_feasible_alarms,    
-                                ),
-                            )
+                if set(received_configurations.keys()) == {"sensors", "actuators", "alarms"}:
+                    for sensor in sensors_list:
+                        s.enter(
+                            sensor.check_Timer(),
+                            1,
+                            Control.sensor_driven_alarm_block,
+                            argument=(
+                                sensor,
+                                s,
+                            sensor_driven_feasible_alarms,    
+                            ),
+                        )
 
-                            
+                configuration_updated["actuators"] = False
+                configuration_updated["sensors"] = False
+                configuration_updated["alarms"] = False            
                     
 
 if __name__ == "__main__":
